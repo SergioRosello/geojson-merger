@@ -1,17 +1,37 @@
 window.onload = function () {
-  var routeElement = document.getElementById("rutas");
+  document.querySelector("#file-input").addEventListener('change', function() {
+    // list of selected files
+    var all_files = this.files;
 
+    // first file selected by user
+    var file = all_files[0];
 
-  if (routeElement) {
-    routeElement.addEventListener('change', mergeGeoJson);
-  }
-}
+    var reader = new FileReader();
 
-function mergeGeoJson(){
-  var input = document.getElementById("rutas");
-  console.log(input.files[0]);
-  var mergedGeoJSON = merge(input);
-  console.log(JSON.stringify(mergedGeoJSON));
+    // file reading started
+    reader.addEventListener('loadstart', function() {
+      console.log('File reading started');
+    });
+
+    // file reading finished successfully
+    reader.addEventListener('load', function(e) {
+      var text = e.target.result;
+
+      // contents of the file
+      console.log("text" + text + "text");
+    });
+
+    // file reading failed
+    reader.addEventListener('error', function() {
+      alert('Error : Failed to read file');
+    });
+
+    console.log("Hola" + reader.readAsText(file) + "Adios!!");
+
+    // End of querySelector
+  });
+
+  //End of onload
 }
 
 function merge (inputs) {
