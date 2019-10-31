@@ -5,9 +5,10 @@
     <script src="index.js"> </script>
   </head>
   <body>
-    <label for="file-input">Choose File</label>
-
-    <!-- accept a text file -->
-    <input type="file" id="file-input"  accept="application/geojson" multiple>
+    <label for="file-input1">Choose File 1</label>
+    <label for="file-generator">Generate geoJson</label>
+    <a id="downloadAnchorElem" style="display:none"></a>
+    <input type="file" id="file-input1" onchange="addGJToText(event)">
+    <input type="button" id="file-generator" onclick="merge">
   </body>
 </html>

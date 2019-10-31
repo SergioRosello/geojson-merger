@@ -1,52 +1,38 @@
+var text = [];
 window.onload = function () {
-  document.querySelector("#file-input").addEventListener('change', function() {
-    // list of selected files
-    var all_files = this.files;
-
-    // first file selected by user
-    var file = all_files[0];
-
-    var reader = new FileReader();
-
-    // file reading started
-    reader.addEventListener('loadstart', function() {
-      console.log('File reading started');
-    });
-
-    // file reading finished successfully
-    reader.addEventListener('load', function(e) {
-      var text = e.target.result;
-
-      // contents of the file
-      console.log("text" + text + "text");
-    });
-
-    // file reading failed
-    reader.addEventListener('error', function() {
-      alert('Error : Failed to read file');
-    });
-
-    console.log("Hola" + reader.readAsText(file) + "Adios!!");
-
-    // End of querySelector
+  document.querySelector("#file-generator").addEventListener('click', function() {
+    var mergedgeoJson = merge(window.text);
+    var dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(mergedgeoJson));
+    var dlAnchorElem = document.getElementById('downloadAnchorElem');
+    dlAnchorElem.setAttribute("href",     dataStr     );
+    dlAnchorElem.setAttribute("download", "scene.geojson");
+    dlAnchorElem.click();
+    console.log("GeoJSON unidos: " + JSON.stringify(mergedgeoJson));
   });
-
-  //End of onload
 }
 
-function merge (inputs) {
+function addGJToText(event){
+  var reader = new FileReader();
+ reader.readAsText(event.target.files[0]);
+  reader.onload = function(event) {
+    window.text.push(JSON.parse(event.target.result));
+  };
+}
+
+function merge () {
   var output = {
     type: 'FeatureCollection',
     features: []
   };
-  for (var i = 0; i < inputs.length; i++) {
-    var normalized = normalize(inputs[i]);
+  for (var i = 0; i < window.text.length; i++) {
+    var normalized = normalize(window.text[i]);
     for (var j = 0; j < normalized.features.length; j++) {
       output.features.push(normalized.features[j]);
     }
   }
   return output;
 }
+
 var types = {
   Point: 'geometry',
   MultiPoint: 'geometry',
