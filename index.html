@@ -5,10 +5,10 @@
     <script src="index.js"> </script>
   </head>
   <body>
-    <label for="file-input1">Choose File 1</label>
-    <label for="file-generator">Generate geoJson</label>
+    <label for="file-input">Escoge los archivos que quieres unir</label>
+    <input type="file" id="file-input" onchange="addGJToText(event)">
+    <label for="file-generator">Descargar archivo de rutas unidas</label>
     <a id="downloadAnchorElem" style="display:none"></a>
-    <input type="file" id="file-input1" onchange="addGJToText(event)">
-    <input type="button" id="file-generator" onclick="merge">
+    <input type="button" id="file-generator" onclick="merge" value="Descarga archivo">
   </body>
 </html>
