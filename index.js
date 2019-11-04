@@ -13,10 +13,21 @@ window.onload = function () {
 
 function addGJToText(event){
   var reader = new FileReader();
- reader.readAsText(event.target.files[0]);
+  reader.readAsText(event.target.files[0]);
+  var fileName = event.target.files[0].name;
   reader.onload = function(event) {
     window.text.push(JSON.parse(event.target.result));
+    addItem(fileName);
   };
+}
+
+function addItem(fileName){
+	var ol = document.getElementById("dynamic-list");
+  // Sustituir por el nombre del archivo
+  var li = document.createElement("li");
+  li.setAttribute('id',fileName);
+  li.appendChild(document.createTextNode(fileName));
+  ol.appendChild(li);
 }
 
 function merge () {

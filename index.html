@@ -7,6 +7,9 @@
   <body>
     <label for="file-input">Escoge los archivos que quieres unir</label>
     <input type="file" id="file-input" onchange="addGJToText(event)">
+
+    <ol id="dynamic-list"></ol>
+
     <label for="file-generator">Descargar archivo de rutas unidas</label>
     <a id="downloadAnchorElem" style="display:none"></a>
     <input type="button" id="file-generator" onclick="merge" value="Descarga archivo">
