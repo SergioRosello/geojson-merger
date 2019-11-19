@@ -39,7 +39,7 @@ function merge () {
     var normalized = normalize(window.text[i]);
     for (var j = 0; j < normalized.features.length; j++) {
       if (normalized.features[j].geometry.type == 'LineString' && output.features.length) {
-        output.features[0].geometry.coordinates.concat(normalized.features[j].geometry.coordinates);
+        output.features[0].geometry.coordinates = output.features[0].geometry.coordinates.concat(normalized.features[j].geometry.coordinates);
       }
       else output.features.push(normalized.features[j]);
     }
