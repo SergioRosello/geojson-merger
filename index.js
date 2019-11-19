@@ -38,7 +38,10 @@ function merge () {
   for (var i = 0; i < window.text.length; i++) {
     var normalized = normalize(window.text[i]);
     for (var j = 0; j < normalized.features.length; j++) {
-      output.features.push(normalized.features[j]);
+      if (normalized.features[j].geometry.type == 'LineString' && output.features.length) {
+        output.features[0].geometry.coordinates.concat(normalized.features[j].geometry.coordinates);
+      }
+      else output.features.push(normalized.features[j]);
     }
   }
   return output;
